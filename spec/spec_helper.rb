@@ -1,0 +1,2 @@
+require 'field'
+require 'simplecov'

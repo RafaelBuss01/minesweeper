@@ -1,8 +1,11 @@
 # A sample Gemfile
 source "http://rubygems.org"
 # gem "rails"
-
-gem "rspec"
+group :test do
+  gem "rspec"
+  gem 'simplecov', :require => false, :git => 'https://github.com/colszowka/simplecov.git'
+  gem 'simplecov-html', :require => false, :git => 'https://github.com/colszowka/simplecov-html.git'
+end
 
 group :notify do
   gem "guard"
