@@ -1,2 +1,3 @@
-require 'field'
 require 'simplecov'
+
+require 'field'
