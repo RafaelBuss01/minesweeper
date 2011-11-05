@@ -1,7 +1,7 @@
 class Field
-	attr_accessor :cells
+	attr_accessor :cells, :m, :n
 
-	def initialize(m, n)
+	def initialize(m=0, n=0)
 		raise "Invalid size" unless m > 0 && n > 0
 		@m, @n = m, n
 		@cells = []
@@ -20,6 +20,11 @@ class Field
 
 	def bomb_at(m, n)
 		@cells[m][n] = "*"
+	end
+
+	def open(m, n)
+		@cells[m][n] = " " if @cells[m][n] == "."
+		@cells[m][n] = "'" if @cells[m][n] == "*"
 	end
 
 	def each_cell(&blk)
@@ -81,6 +86,7 @@ def solve
 		field.solve!
 		$stdout.puts field.to_a.join("\n")
 	end
+	field
 end
 
 solve if __FILE__ == $0
