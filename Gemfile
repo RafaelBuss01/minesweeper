@@ -13,3 +13,5 @@ group :notify do
   gem 'rb-inotify'
   gem 'libnotify'
 end
+
+gem 'shoes'

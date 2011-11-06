@@ -22,9 +22,21 @@ class Field
 		@cells[m][n] = "*"
 	end
 
-	def open(m, n)
+	def open!(m, n)
 		@cells[m][n] = " " if @cells[m][n] == "."
-		@cells[m][n] = "'" if @cells[m][n] == "*"
+		@cells[m][n] = "'" if @cells[m][n] == "*"		# a cell with "'" indicates that the bomb could be showed
+	end
+
+	def select!(m, n)
+		return if @cells[m][n] == " "
+		open!(m, n)
+	end
+
+	def crash? 
+		each_cell do |cell, x, y|
+			return true if cell == "'"
+		end
+		false
 	end
 
 	def each_cell(&blk)
@@ -48,6 +60,15 @@ class Field
 		end
 		neighbours
 	end
+
+	def bombs_around(m, n)
+		a = neighbours_of(m, n)
+		bombs = 0
+		a.each do |c|
+			bombs += 1 if @cells[c[0]][ c[1]] == "*" || @cells[c[0]][ c[1]] == "'"
+		end
+		bombs
+	end	
 
 	def to_a
 		@cells.map {|row| row.join}
@@ -86,7 +107,6 @@ def solve
 		field.solve!
 		$stdout.puts field.to_a.join("\n")
 	end
-	field
 end
 
 solve if __FILE__ == $0
