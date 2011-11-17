@@ -23,9 +23,7 @@ Shoes.app :width => 730, :height => 450, :title => 'Minesweeper' do
 					para "digite a largura e a altura:"
 					m, n = edit_line, edit_line
 					button("vai!") do
-						puts m.text.to_i, n.text.to_i
 						@game = Field.new(m.text.to_i, n.text.to_i)
-						puts @game.cells.length
 						draw_game
 					end	
 				end	
@@ -89,64 +87,13 @@ Shoes.app :width => 730, :height => 450, :title => 'Minesweeper' do
 	m, n = 0, 0
   click do |button, x, y|
 
-	  fx = ((x-(self.width - @game.m*CELL_SIZE.to_i) / 2) / CELL_SIZE).to_i + 12
-	  fy = ((y-(self.height - @game.n*CELL_SIZE.to_i) / 2) / CELL_SIZE).to_i + 5
-	 	# fx = 
-	 	if button == 1
-	  	puts "#{x}:#{fx},#{y}:#{fy}"
-	  	@game.select!(fx, fy)
-	  end
-	  # n +=1 if button == 3
-	  # m, n = 0, 0 if button == 2
-	  # puts "#{x}:#{fx},#{y}:#{fy}"
+	 	fx = ((x-12)/CELL_SIZE).to_i
+	 	fy = ((y-25)/(CELL_SIZE+1)).to_i
+  	@game.select!(fx, fy) if button == 1
+	  puts "#{x}:#{fx},#{y}:#{fy}"
 	  draw_game
+		alert ( "perdeu playboy." ) if @game.crash?
   end
 
-
-
-
-
-
-
-
-
-
-
-	# draw_game
-
-	# @game.open 1, 1
-	# @game.open 2, 1
-	# @game.open 1, 2
-	# @game.open 2, 2
-	# @game.open 5, 7
-	# @game.open 6, 5
-	# @game.open 1, 6
-	# @game.open 1, 7
-	# @game.open 3, 3
-
 end
 
-
-# Shoes.app :width => 730, :height => 450, :title => 'Minesweeper'
-
-
-
-
-
-
-class Interface
-	attr_accessor :field
-	def initialize game
-		@game = game
-	end	
-end
-# 	def print_field
-# 		@field.cells.each do |row|
-# 			row.each do |cell|
-# 				print cell
-# 			end	
-# 			puts
-# 		end	
-# 	end	
-
-# end
